@@ -1,7 +1,7 @@
 import { useEffect, useState } from "preact/hooks";
 
 type Props = {
-  isLoaded: boolean; // <-- se lo pasas desde fuera cuando realmente acaba el análisis
+  isLoaded: boolean;
 };
 
 const phrases = [
@@ -21,7 +21,7 @@ export default function LoadingDonut({ isLoaded }: Props) {
     const progressInterval = setInterval(() => {
       setProgress((p) => {
         if (isLoaded) return 100;
-        if (p >= 97) return p; // No llegar al 100 hasta que esté listo
+        if (p >= 97) return p;
         return Math.min(p + Math.random() * 2, 97);
       });
     }, 100);
@@ -37,9 +37,20 @@ export default function LoadingDonut({ isLoaded }: Props) {
   }, [isLoaded]);
 
   return (
-    <div class="loading-container text-center p-4 relative">
-      {/* Donut */}
-      <svg width="120" height="120" viewBox="0 0 100 100" class="mx-auto">
+    <div
+      class="loading-container text-center p-4 relative"
+      role="status"
+      aria-live="polite"
+      aria-label={`Progreso de análisis: ${Math.floor(progress)} por ciento. ${phrases[phraseIndex]}`}
+    >
+      <svg
+        width="120"
+        height="120"
+        viewBox="0 0 100 100"
+        class="mx-auto"
+        aria-hidden="true"
+        focusable="false"
+      >
         <circle cx="50" cy="50" r="45" fill="none" stroke="#eee" stroke-width="10" />
         <circle
           cx="50"
@@ -63,11 +74,11 @@ export default function LoadingDonut({ isLoaded }: Props) {
         </text>
       </svg>
 
-      {/* Frase dinámica */}
-      <p class="mt-4 text-lg font-semibold">{phrases[phraseIndex]}</p>
+      <p class="mt-4 text-lg font-semibold" aria-hidden="true">
+        {phrases[phraseIndex]}
+      </p>
 
-      {/* Animación burbujas */}
-      <div class="bubbles">
+      <div class="bubbles" aria-hidden="true">
         {Array.from({ length: 10 }).map((_, i) => (
           <div class="bubble" key={i}></div>
         ))}

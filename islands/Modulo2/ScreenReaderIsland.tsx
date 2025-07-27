@@ -41,46 +41,34 @@ const ScreenReaderIsland: FunctionalComponent<Props> = ({ axeResults }) => {
     axeResults?.violations?.some((v: any) => ids.includes(v.id));
 
   return (
-    <div class="low-vision-hint-box">
+    <div class="low-vision-hint-box" role="region" aria-label="Resultados para lector de pantalla">
       {/* Indicadores de cumplimiento */}
       <ul class="hint-checklist">
         <li>
           <span
-            class={
-              hasViolation(["page-has-heading-one"])
-                ? "audit-status not-passed"
-                : "audit-status passed"
-            }
+            class={hasViolation(["page-has-heading-one"]) ? "audit-status not-passed" : "audit-status passed"}
+            aria-hidden="true"
           />
           Encabezado principal definido
         </li>
         <li>
           <span
-            class={
-              hasViolation(["landmark-one-main", "region"])
-                ? "audit-status not-passed"
-                : "audit-status passed"
-            }
+            class={hasViolation(["landmark-one-main", "region"]) ? "audit-status not-passed" : "audit-status passed"}
+            aria-hidden="true"
           />
           Estructura de regiones accesible
         </li>
         <li>
           <span
-            class={
-              hasViolation(["aria-roles", "aria-valid-attr"])
-                ? "audit-status not-passed"
-                : "audit-status passed"
-            }
+            class={hasViolation(["aria-roles", "aria-valid-attr"]) ? "audit-status not-passed" : "audit-status passed"}
+            aria-hidden="true"
           />
           Roles correctamente asignados
         </li>
         <li>
           <span
-            class={
-              hasViolation(["html-has-lang"])
-                ? "audit-status not-passed"
-                : "audit-status passed"
-            }
+            class={hasViolation(["html-has-lang"]) ? "audit-status not-passed" : "audit-status passed"}
+            aria-hidden="true"
           />
           Idioma de la página definido
         </li>
@@ -91,12 +79,14 @@ const ScreenReaderIsland: FunctionalComponent<Props> = ({ axeResults }) => {
         class="section-title card"
         onClick={() => setOpen(!open)}
         style={{ cursor: "pointer", userSelect: "none" }}
+        aria-expanded={open}
+        aria-controls="screenreader-details"
       >
         Análisis detallado para lector de pantalla {open ? "▲" : "▼"}
       </h3>
 
       {open && (
-        <div class="card hint-detail-box">
+        <div class="card hint-detail-box" id="screenreader-details">
           <p class="intro">
             Para personas ciegas o con baja visión que utilizan lectores de pantalla, es esencial que la página tenga una estructura semántica clara, con etiquetas adecuadas, encabezados correctos y navegación lógica.
           </p>

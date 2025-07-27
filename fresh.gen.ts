@@ -4,10 +4,17 @@
 
 import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
-import * as $analyze from "./routes/analyze.ts";
+import * as $api_analyze from "./routes/api/analyze.ts";
+import * as $api_arbolmistral from "./routes/api/arbolmistral.ts";
+import * as $api_chatbot from "./routes/api/chatbot.ts";
 import * as $api_mistrall from "./routes/api/mistrall.ts";
 import * as $api_pagespeedd from "./routes/api/pagespeedd.ts";
+import * as $favorites from "./routes/favorites.tsx";
+import * as $historial from "./routes/historial.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $login from "./routes/login.tsx";
+import * as $register from "./routes/register.tsx";
+import * as $ChatBotIsland from "./islands/ChatBotIsland.tsx";
 import * as $FormIsland from "./islands/FormIsland.tsx";
 import * as $InfoTooltipsIsland from "./islands/InfoTooltipsIsland.tsx";
 import * as $Modulo1_LoadingDonut from "./islands/Modulo1/LoadingDonut.tsx";
@@ -16,24 +23,38 @@ import * as $Modulo1_TechnicalAnalysisModule from "./islands/Modulo1/TechnicalAn
 import * as $Modulo2_LowVisionIsland from "./islands/Modulo2/LowVisionIsland.tsx";
 import * as $Modulo2_ResultsAxe from "./islands/Modulo2/ResultsAxe.tsx";
 import * as $Modulo2_ScreenReaderIsland from "./islands/Modulo2/ScreenReaderIsland.tsx";
+import * as $Modulo2_ScreenSimulatorIsland from "./islands/Modulo2/ScreenSimulatorIsland.tsx";
 import * as $Modulo2_SeniorVisionIsland from "./islands/Modulo2/SeniorVisionIsland.tsx";
 import * as $Modulo2_SimulationModule from "./islands/Modulo2/SimulationModule.tsx";
 import * as $Modulo3_HeuristicModule from "./islands/Modulo3/HeuristicModule.tsx";
 import * as $Modulo4_RecommendationsModule from "./islands/Modulo4/RecommendationsModule.tsx";
 import * as $Modulo5_FinalModule from "./islands/Modulo5/FinalModule.tsx";
+import * as $Nav_FavoritesIsland from "./islands/Nav/FavoritesIsland.tsx";
+import * as $Nav_HistorialIsland from "./islands/Nav/HistorialIsland.tsx";
+import * as $Nav_NavbarIsland from "./islands/Nav/NavbarIsland.tsx";
 import * as $UXAdvisorApp from "./islands/UXAdvisorApp.tsx";
+import * as $Users_LoginForm from "./islands/Users/LoginForm.tsx";
+import * as $Users_RegsiterForm from "./islands/Users/RegsiterForm.tsx";
+import * as $WCAGInfoIsland from "./islands/WCAGInfoIsland.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
   routes: {
     "./routes/_404.tsx": $_404,
     "./routes/_app.tsx": $_app,
-    "./routes/analyze.ts": $analyze,
+    "./routes/api/analyze.ts": $api_analyze,
+    "./routes/api/arbolmistral.ts": $api_arbolmistral,
+    "./routes/api/chatbot.ts": $api_chatbot,
     "./routes/api/mistrall.ts": $api_mistrall,
     "./routes/api/pagespeedd.ts": $api_pagespeedd,
+    "./routes/favorites.tsx": $favorites,
+    "./routes/historial.tsx": $historial,
     "./routes/index.tsx": $index,
+    "./routes/login.tsx": $login,
+    "./routes/register.tsx": $register,
   },
   islands: {
+    "./islands/ChatBotIsland.tsx": $ChatBotIsland,
     "./islands/FormIsland.tsx": $FormIsland,
     "./islands/InfoTooltipsIsland.tsx": $InfoTooltipsIsland,
     "./islands/Modulo1/LoadingDonut.tsx": $Modulo1_LoadingDonut,
@@ -43,13 +64,21 @@ const manifest = {
     "./islands/Modulo2/LowVisionIsland.tsx": $Modulo2_LowVisionIsland,
     "./islands/Modulo2/ResultsAxe.tsx": $Modulo2_ResultsAxe,
     "./islands/Modulo2/ScreenReaderIsland.tsx": $Modulo2_ScreenReaderIsland,
+    "./islands/Modulo2/ScreenSimulatorIsland.tsx":
+      $Modulo2_ScreenSimulatorIsland,
     "./islands/Modulo2/SeniorVisionIsland.tsx": $Modulo2_SeniorVisionIsland,
     "./islands/Modulo2/SimulationModule.tsx": $Modulo2_SimulationModule,
     "./islands/Modulo3/HeuristicModule.tsx": $Modulo3_HeuristicModule,
     "./islands/Modulo4/RecommendationsModule.tsx":
       $Modulo4_RecommendationsModule,
     "./islands/Modulo5/FinalModule.tsx": $Modulo5_FinalModule,
+    "./islands/Nav/FavoritesIsland.tsx": $Nav_FavoritesIsland,
+    "./islands/Nav/HistorialIsland.tsx": $Nav_HistorialIsland,
+    "./islands/Nav/NavbarIsland.tsx": $Nav_NavbarIsland,
     "./islands/UXAdvisorApp.tsx": $UXAdvisorApp,
+    "./islands/Users/LoginForm.tsx": $Users_LoginForm,
+    "./islands/Users/RegsiterForm.tsx": $Users_RegsiterForm,
+    "./islands/WCAGInfoIsland.tsx": $WCAGInfoIsland,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

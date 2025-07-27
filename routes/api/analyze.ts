@@ -1,5 +1,5 @@
 import { Handlers } from "$fresh/server.ts";
-import { fetchPageSpeedData } from "../backend/api/pagespeed.ts";
+import { fetchPageSpeedData } from "../../backend/api/pagespeed.ts";
 
 export const handler: Handlers = {
   async POST(req) {

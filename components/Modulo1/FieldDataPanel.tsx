@@ -27,28 +27,57 @@ export default function FieldDataPanel({ fieldData }: { fieldData: any }) {
   };
 
   return (
-    <section class="section">
-      <div class="metric-eval">
-        <div class="icon-circle">
+    <section
+      class="section"
+      aria-labelledby="metric-eval-heading"
+      aria-describedby="metric-eval-desc"
+    >
+      <div class="metric-eval" role="status" aria-live="polite">
+        <div class="icon-circle" aria-hidden="true">
           <CheckCircle size={24} />
         </div>
-        <span class="status-label">
+        <span id="metric-eval-desc" class="status-label">
           Evaluación de las Métricas web principales:
           <span class={`status-value ${statusColor}`}> {statusText}</span>
         </span>
       </div>
 
-      <h2 class="section-title flex items-center gap-2 mt-4">
+      <h2 id="metric-eval-heading" class="section-title flex items-center gap-2 mt-4">
         Datos reales de usuarios (CrUX)
-        <InfoTooltipIsland label="CrUX" />
+        <InfoTooltipIsland label="CrUX: datos de campo reales recogidos por Chrome UX Report" />
       </h2>
-      
-      <div class="card metric-grid">
-        <MetricBar label="LCP" val={fieldData.lcp} thresholds={thresholds.lcp} distribution={distribution.lcp} />
-        <MetricBar label="INP" val={fieldData.inp} thresholds={thresholds.inp} distribution={distribution.inp} />
-        <MetricBar label="CLS" val={fieldData.cls} thresholds={thresholds.cls} distribution={distribution.cls} />
-        <MetricBar label="FCP" val={fieldData.fcp} thresholds={thresholds.fcp} distribution={distribution.fcp} />
-        <MetricBar label="TTFB" val={fieldData.ttfb} thresholds={thresholds.ttfb} distribution={distribution.ttfb} />
+
+      <div class="card metric-grid" role="region" aria-label="Gráfico de métricas CrUX">
+        <MetricBar
+          label="LCP"
+          val={fieldData.lcp}
+          thresholds={thresholds.lcp}
+          distribution={distribution.lcp}
+        />
+        <MetricBar
+          label="INP"
+          val={fieldData.inp}
+          thresholds={thresholds.inp}
+          distribution={distribution.inp}
+        />
+        <MetricBar
+          label="CLS"
+          val={fieldData.cls}
+          thresholds={thresholds.cls}
+          distribution={distribution.cls}
+        />
+        <MetricBar
+          label="FCP"
+          val={fieldData.fcp}
+          thresholds={thresholds.fcp}
+          distribution={distribution.fcp}
+        />
+        <MetricBar
+          label="TTFB"
+          val={fieldData.ttfb}
+          thresholds={thresholds.ttfb}
+          distribution={distribution.ttfb}
+        />
       </div>
     </section>
   );

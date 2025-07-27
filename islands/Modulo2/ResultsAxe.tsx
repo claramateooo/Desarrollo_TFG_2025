@@ -1,4 +1,3 @@
-/** @jsxImportSource preact */
 import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 import { AlertCircle, HelpCircle, CheckCircle } from "https://esm.sh/lucide-preact@0.270.0?deps=preact@10.22.0";
@@ -24,19 +23,23 @@ const ResultsAxe: FunctionalComponent<Props> = ({ axeResults }) => {
   const passes = axeResults?.passes || [];
 
   return (
-    <div class="results-axe-box">
+    <div class="results-axe-box" role="region" aria-label="Resultados de análisis AxeCore">
       <h2
         class="section-title card"
         onClick={() => setOpen((o) => !o)}
         style={{ cursor: "pointer", userSelect: "none" }}
+        aria-expanded={open}
+        aria-controls="axe-results-panel"
       >
         Resultados AxeCore {open ? "▲" : "▼"}
       </h2>
 
       {open && (
-        <div class="card axe-card">
+        <div class="card axe-card" id="axe-results-panel">
           <div class="summary-section">
-            <h4 class="summary-title error"><AlertCircle size={18} /> Errores de accesibilidad</h4>
+            <h4 class="summary-title error">
+              <AlertCircle size={18} aria-hidden="true" /> Errores de accesibilidad
+            </h4>
             {violations.length === 0 ? (
               <p>No se han detectado errores graves 🎉</p>
             ) : (
@@ -48,7 +51,9 @@ const ResultsAxe: FunctionalComponent<Props> = ({ axeResults }) => {
           </div>
 
           <div class="summary-section">
-            <h4 class="summary-title incomplete"><HelpCircle size={18} /> Partes del análisis no concluyentes</h4>
+            <h4 class="summary-title incomplete">
+              <HelpCircle size={18} aria-hidden="true" /> Partes del análisis no concluyentes
+            </h4>
             {incomplete.length === 0 ? (
               <p>Todo ha podido evaluarse correctamente.</p>
             ) : (
@@ -60,7 +65,9 @@ const ResultsAxe: FunctionalComponent<Props> = ({ axeResults }) => {
           </div>
 
           <div class="summary-section">
-            <h4 class="summary-title passes"><CheckCircle size={18} /> Reglas cumplidas</h4>
+            <h4 class="summary-title passes">
+              <CheckCircle size={18} aria-hidden="true" /> Reglas cumplidas
+            </h4>
             {passes.length === 0 ? (
               <p>No se han validado reglas exitosamente.</p>
             ) : (

@@ -13,22 +13,22 @@ const LowVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
     {
       id: "color-contrast",
       label: "Contraste suficiente",
-      icon: <Eye size={18} class="icon-eye" />,
+      icon: <Eye size={18} class="icon-eye" aria-hidden="true"/>,
     },
     {
       id: "font-size-is-readable",
       label: "Tamaño de texto legible",
-      icon: <Text size={18} class="icon-eye" />,
+      icon: <Text size={18} class="icon-eye" aria-hidden="true" />,
     },
     {
       id: "link-name",
       label: "Enlaces distinguibles",
-      icon: <Link size={18} class="icon-eye" />,
+      icon: <Link size={18} class="icon-eye" aria-hidden="true" />,
     },
     {
       id: "html-has-lang",
       label: "Idioma de la página definido",
-      icon: <Languages size={18} class="icon-eye" />,
+      icon: <Languages size={18} class="icon-eye" aria-hidden="true"/>,
     },
   ];
 
@@ -36,7 +36,11 @@ const LowVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
     axeResults?.violations?.some((v: any) => ids.includes(v.id));
 
   return (
-    <div class="low-vision-hint-box">
+     <div
+      class="low-vision-hint-box"
+      role="region"
+      aria-label="Análisis para baja visión"
+    >
       {/* Indicadores de cumplimiento */}
       <ul class="hint-checklist">
         <li>

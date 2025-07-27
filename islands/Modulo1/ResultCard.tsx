@@ -12,10 +12,15 @@ export default function ResultCard({ data }: { data: any }) {
     <div class="result-wrapper">
       {/* Diagnostics */}
       {data.diagnostics?.length > 0 && (
-        <section class="section">
+        <section
+          class="section"
+          role="region"
+          aria-label="Diagnóstico de accesibilidad"
+        >
           <h2
             class="section-title card"
             onClick={() => setDiagnosticsOpen(!diagnosticsOpen)}
+            aria-expanded={diagnosticsOpen}
             style={{ cursor: "pointer", userSelect: "none" }}
           >
             Diagnóstico <InfoTooltipIsland label="DIAG" />
@@ -38,7 +43,11 @@ export default function ResultCard({ data }: { data: any }) {
       <FieldDataPanel fieldData={data.fieldData} />
 
       {/* Scores */}
-      <section class="section">
+      <section
+        class="section"
+        role="region"
+        aria-label="Puntuaciones generales del sitio web"
+      >
         <h2 class="section-title">Puntuaciones</h2>
         <div class="score-donut-panel">
           <div class="score-cards-inside">
@@ -46,12 +55,16 @@ export default function ResultCard({ data }: { data: any }) {
               <Score title={capitalize(key)} value={value as number | null} />
             ))}
           </div>
-          <PerformanceDonut  score={data.scores.performance ?? 0} />
+          <PerformanceDonut score={data.scores.performance ?? 0} />
         </div>
       </section>
 
       {/* WebVitals Panel */}
-      <section class="section">
+      <section
+        class="section"
+        role="region"
+        aria-label="Panel técnico Web Vitals"
+      >
         <h2 class="section-title">WebVitals Panel (Lighthouse)</h2>
         <div class="card">
           <WebVitalsPanel metrics={data.metrics} />
@@ -60,17 +73,29 @@ export default function ResultCard({ data }: { data: any }) {
 
       {/* Screenshot */}
       {data.screenshot && (
-        <section class="section">
+        <section
+          class="section"
+          role="region"
+          aria-label="Captura de pantalla de la página analizada"
+        >
           <h2 class="section-title">Captura de pantalla</h2>
           <div class="card">
-            <img src={data.screenshot} alt="Final screenshot" class="screenshot" />
+            <img
+              src={data.screenshot}
+              alt="Captura de pantalla final de la página evaluada"
+              class="screenshot"
+            />
           </div>
         </section>
       )}
 
       {/* Opportunities */}
       {data.opportunities?.length > 0 && (
-        <section class="section">
+        <section
+          class="section"
+          role="region"
+          aria-label="Oportunidades de mejora técnica"
+        >
           <h2 class="section-title">Oportunidades de mejora</h2>
           <div class="opportunity-grid">
             {data.opportunities.map((item: any) => (
@@ -85,13 +110,29 @@ export default function ResultCard({ data }: { data: any }) {
 
       {/* Passed Audits */}
       {data.allAuditsByCategory && (
-        <section class="section">
+        <section
+          class="section"
+          role="region"
+          aria-label="Auditorías aprobadas agrupadas por categoría"
+        >
           <h2 class="section-title">Auditorías</h2>
           <div class="card-2">
-            <PassedAuditsSection title="Performance" audits={data.allAuditsByCategory.performance} />
-            <PassedAuditsSection title="SEO" audits={data.allAuditsByCategory.seo} />
-            <PassedAuditsSection title="Accessibility" audits={data.allAuditsByCategory.accessibility} />
-            <PassedAuditsSection title="Best Practices" audits={data.allAuditsByCategory["best-practices"]} />
+            <PassedAuditsSection
+              title="Performance"
+              audits={data.allAuditsByCategory.performance}
+            />
+            <PassedAuditsSection
+              title="SEO"
+              audits={data.allAuditsByCategory.seo}
+            />
+            <PassedAuditsSection
+              title="Accessibility"
+              audits={data.allAuditsByCategory.accessibility}
+            />
+            <PassedAuditsSection
+              title="Best Practices"
+              audits={data.allAuditsByCategory["best-practices"]}
+            />
           </div>
         </section>
       )}

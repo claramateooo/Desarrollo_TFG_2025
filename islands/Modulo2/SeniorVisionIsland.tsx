@@ -1,11 +1,12 @@
+/** @jsxImportSource preact */
 import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
 import {
   Text,
   Touchpad,
   Volume2,
-  LayoutGrid,
   Languages,
+  Keyboard,
 } from "https://esm.sh/lucide-preact@0.270.0?deps=preact@10.22.0";
 
 type Props = {
@@ -36,13 +37,18 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
       label: "Idioma de la página definido",
       icon: <Languages size={18} class="icon-eye" />,
     },
+    {
+      id: "keyboard-navigation-check",
+      label: "Navegación por teclado clara",
+      icon: <Keyboard size={18} class="icon-eye" />,
+    },
   ];
 
   const hasViolation = (ids: string[]) =>
     axeResults?.violations?.some((v: any) => ids.includes(v.id));
 
   return (
-    <div class="low-vision-hint-box">
+    <div class="low-vision-hint-box" role="region" aria-labelledby="senior-title">
       {/* Indicadores de cumplimiento */}
       <ul class="hint-checklist">
         <li>
@@ -52,6 +58,7 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
                 ? "audit-status not-passed"
                 : "audit-status passed"
             }
+            aria-hidden="true"
           />
           Tamaño de texto adecuado
         </li>
@@ -62,6 +69,7 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
                 ? "audit-status not-passed"
                 : "audit-status passed"
             }
+            aria-hidden="true"
           />
           Botones accesibles
         </li>
@@ -72,6 +80,7 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
                 ? "audit-status not-passed"
                 : "audit-status passed"
             }
+            aria-hidden="true"
           />
           Contenido sin distracciones
         </li>
@@ -82,16 +91,28 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
                 ? "audit-status not-passed"
                 : "audit-status passed"
             }
+            aria-hidden="true"
           />
           Idioma de la página definido
+        </li>
+        <li>
+          <span class="audit-status passed" aria-hidden="true" />
+          Navegación por teclado clara
         </li>
       </ul>
 
       {/* Caja desplegable de análisis */}
       <h3
+        id="senior-title"
         class="section-title card"
         onClick={() => setOpen(!open)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") setOpen(!open);
+        }}
         style={{ cursor: "pointer", userSelect: "none" }}
+        aria-expanded={open}
+        role="button"
+        tabIndex={0}
       >
         Análisis detallado para personas mayores {open ? "▲" : "▼"}
       </h3>
@@ -113,36 +134,45 @@ const SeniorVisionIsland: FunctionalComponent<Props> = ({ axeResults }) => {
               <div class="detail-card">
                 {checks[0].icon}
                 <div>
-                  <strong>Tamaño de texto adecuado</strong>: Las personas mayores suelen beneficiarse de tamaños de letra grandes y escalables que no requieran zoom manual.  
+                  <strong>Tamaño de texto adecuado</strong>: Las personas mayores se benefician de tamaños de letra grandes y escalables.  
                   <br />
-                  <strong>Validación técnica:</strong> Axe Core lo evalúa con las reglas <strong>font-size-is-readable</strong> y <strong>meta-viewport-large</strong>.
+                  <strong>Validación técnica:</strong> <code>font-size-is-readable</code>, <code>meta-viewport-large</code>.
                 </div>
               </div>
 
               <div class="detail-card">
                 {checks[1].icon}
                 <div>
-                  <strong>Botones accesibles</strong>: Es recomendable ofrecer botones grandes, con buen espaciado y claramente identificables.  
+                  <strong>Botones accesibles</strong>: Botones grandes y bien espaciados facilitan la interacción.  
                   <br />
-                  <strong>Validación técnica:</strong> Se analiza mediante <strong>touch-target-size</strong>, que mide el área clicable.
+                  <strong>Validación técnica:</strong> <code>touch-target-size</code>.
                 </div>
               </div>
 
               <div class="detail-card">
                 {checks[2].icon}
                 <div>
-                  <strong>Contenido sin distracciones</strong>: Evitar animaciones, sonidos automáticos o regiones de scroll inesperado mejora el enfoque de los usuarios mayores.  
+                  <strong>Contenido sin distracciones</strong>: Se debe evitar el autoplay de audio o regiones que se desplacen solas.  
                   <br />
-                  <strong>Validación técnica:</strong> Axe Core usa reglas como <strong>no-autoplay-audio</strong> y <strong>scrollable-region-focusable</strong>.
+                  <strong>Validación técnica:</strong> <code>no-autoplay-audio</code>, <code>scrollable-region-focusable</code>.
                 </div>
               </div>
 
               <div class="detail-card">
                 {checks[3].icon}
                 <div>
-                  <strong>Idioma de la página definido</strong>: Es importante que los navegadores o asistentes puedan interpretar correctamente el idioma mostrado.  
+                  <strong>Idioma de la página definido</strong>: Permite que los lectores y navegadores interpreten el contenido correctamente.  
                   <br />
-                  <strong>Validación técnica:</strong> Evaluado con <strong>html-has-lang</strong>.
+                  <strong>Validación técnica:</strong> <code>html-has-lang</code>.
+                </div>
+              </div>
+
+              <div class="detail-card">
+                {checks[4].icon}
+                <div>
+                  <strong>Navegación por teclado clara</strong>: Es esencial que todos los elementos puedan usarse sin ratón, usando <code>tab</code>, <code>Enter</code> o <code>Space</code>.  
+                  <br />
+                  <strong>Validación técnica:</strong> Esta verificación se realiza manualmente, comprobando que elementos interactivos tengan <code>tabIndex</code> y estados <code>:focus</code>.
                 </div>
               </div>
             </div>

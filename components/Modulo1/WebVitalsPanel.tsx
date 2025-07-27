@@ -1,4 +1,3 @@
-
 import { h } from "preact";
 
 interface Props {
@@ -7,16 +6,28 @@ interface Props {
 
 export default function WebVitalsPanel({ metrics }: Props) {
   return (
-    <div class="metric-panel">
-      <h3 class="metric-header">Web Vitals</h3>
+    <section
+      class="metric-panel"
+      role="region"
+      aria-labelledby="web-vitals-title"
+    >
+      <h3 id="web-vitals-title" class="metric-header">
+        Web Vitals
+      </h3>
+
       <div class="metric-row">
         {Object.entries(metrics).map(([key, value]) => (
-          <div class="metric-box" key={key}>
-            <div class="value">{value}</div>
-            <div class="label">{key.toUpperCase()}</div>
+          <div
+            class="metric-box"
+            key={key}
+            role="group"
+            aria-label={`Métrica ${key.toUpperCase()}: ${value}`}
+          >
+            <div class="value" aria-hidden="true">{value}</div>
+            <div class="label" aria-hidden="true">{key.toUpperCase()}</div>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

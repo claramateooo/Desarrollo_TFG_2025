@@ -12,8 +12,8 @@ import UXAdvisorApp from "../islands/UXAdvisorApp.tsx";
 
 export default function Home({ data }: { data: any }) {
   return (
-    <main class="page">
-       <UXAdvisorApp />
+    <main class="page" role="main" aria-label="Aplicación de análisis UX">
+      <UXAdvisorApp />
     </main>
   );
 }

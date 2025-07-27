@@ -44,21 +44,38 @@ export default function MetricBar({
     `${(x / 1000).toFixed(3).replace(/\.?0+$/, "")}s`;
 
   return (
-    <div class="metric-block">
-      <div class="metric-label-with-info">
+    <div class="metric-block" role="group" aria-labelledby={`label-${label}`}>
+      <div class="metric-label-with-info" id={`label-${label}`}>
         <strong>{label}:</strong> {format(val)}
         <InfoTooltipIsland label={label} />
       </div>
 
-      <div class="metric-bar-container">
-        <div class="metric-bar green" style={{ width: `${greenWidth}%` }} />
-        <div class="metric-bar yellow" style={{ width: `${yellowWidth}%` }} />
-        <div class="metric-bar red" style={{ width: `${redWidth}%` }} />
+      <div
+        class="metric-bar-container"
+        role="img"
+        aria-label={`Barra de rendimiento para ${label}, valor actual: ${format(val)}`}
+      >
+        <div
+          class="metric-bar green"
+          style={{ width: `${greenWidth}%` }}
+          aria-hidden="true"
+        />
+        <div
+          class="metric-bar yellow"
+          style={{ width: `${yellowWidth}%` }}
+          aria-hidden="true"
+        />
+        <div
+          class="metric-bar red"
+          style={{ width: `${redWidth}%` }}
+          aria-hidden="true"
+        />
 
         {val !== null && (
           <div
             class="metric-indicator-wrapper"
             style={{ left: `${leftPercent}%` }}
+            aria-hidden="true"
           >
             <div
               class="metric-indicator-circle"
@@ -68,7 +85,7 @@ export default function MetricBar({
         )}
       </div>
 
-      <div class="metric-legend">
+      <div class="metric-legend" role="presentation">
         <span class="legend-good">
           Bueno (≤ {f(good)}) — {distribution[0]}%
         </span>

@@ -14,37 +14,38 @@ interface Props {
 const profileData: Record<string, { label: string; icon: h.JSX.Element }> = {
   default: {
     label: "Navegación estándar",
-    icon: <Smile class="emoji" />,
+    icon: <Smile class="emoji" aria-hidden="true" />,
   },
   lowVision: {
     label: "Baja visión",
-    icon: <EyeOff class="emoji" />,
+    icon: <EyeOff class="emoji" aria-hidden="true" />,
   },
   senior: {
-    label: "Persona mayor",
-    icon: <UserCog class="emoji" />,
+    label: "Persona mayor / Movilidad reducida",
+    icon: <UserCog class="emoji" aria-hidden="true" />,
   },
   screenReader: {
     label: "Lector de pantalla",
-    icon: <Volume2 class="emoji" />,
+    icon: <Volume2 class="emoji" aria-hidden="true" />,
   },
 };
 
 export default function ProfileSelector({ selected, onChange }: Props) {
   return (
     <div class="selector-container">
-      {/* Etiqueta con icono dinámico */}
       <label for="profile" class="selector-label">
-        <span class="emoji">{profileData[selected]?.icon}</span>
+        <span class="emoji" aria-hidden="true">
+          {profileData[selected]?.icon}
+        </span>
         Selecciona un perfil
       </label>
 
-      {/* Selector de perfiles */}
       <select
         id="profile"
         class="profile-select"
         value={selected}
         onChange={(e) => onChange((e.target as HTMLSelectElement).value)}
+        aria-label="Selector de perfil de usuario"
       >
         {Object.entries(profileData).map(([key, data]) => (
           <option key={key} value={key}>

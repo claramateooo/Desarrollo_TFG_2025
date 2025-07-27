@@ -33,24 +33,28 @@ export default function RecommendationsModule({ profile, axeResults }: Props) {
   const handleToggle = () => {
     const nextState = !open;
     setOpen(nextState);
-    if (nextState) fetchRecommendation(); // al abrir por primera vez
+    if (nextState) fetchRecommendation();
   };
 
-  // 🔁 Regenerar si cambia el análisis y ya está abierto
   useEffect(() => {
     if (open) {
       fetchRecommendation();
     }
   }, [axeResults, profile]);
-   useEffect(() => {
+
+  useEffect(() => {
     setOpen(false);
     setRecommendation(null);
   }, [axeResults, profile]);
 
   return (
-    <section class="section">
+    <section class="section" aria-labelledby="reco-title">
       <h2
+        id="reco-title"
         class="section-title card"
+        role="button"
+        aria-expanded={open}
+        tabIndex={0}
         onClick={handleToggle}
         style={{ cursor: "pointer", userSelect: "none" }}
       >
@@ -58,7 +62,12 @@ export default function RecommendationsModule({ profile, axeResults }: Props) {
       </h2>
 
       {open && (
-        <div class="card recommendation-box">
+        <div
+          class="card recommendation-box"
+          role="region"
+          aria-label="Recomendaciones personalizadas generadas por inteligencia artificial"
+          aria-busy={loading}
+        >
           <p class="ia-label">
             <Sparkles size={18} class="sparkle-icon" /> Recomendaciones creadas con IA
           </p>

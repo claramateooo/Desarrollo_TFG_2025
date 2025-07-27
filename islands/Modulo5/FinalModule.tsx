@@ -48,9 +48,13 @@ export default function FinalModule({ axeResults, lighthouseScore }: Props) {
   }, [axeResults, lighthouseScore]);
 
   return (
-    <section class="section">
+    <section class="section" aria-labelledby="final-title">
       <h2
+        id="final-title"
         class="section-title card"
+        role="button"
+        aria-expanded={open}
+        tabIndex={0}
         onClick={() => setOpen((prev) => !prev)}
         style={{ cursor: "pointer", userSelect: "none" }}
       >
@@ -58,21 +62,30 @@ export default function FinalModule({ axeResults, lighthouseScore }: Props) {
       </h2>
 
       {open && (
-        <div class="card final-score-box">
-          <p class="ia-label">📊 Evaluación UX Global</p>
+        <div
+          class="card final-score-box"
+          role="region"
+          aria-labelledby="final-title"
+          aria-describedby="final-summary"
+        >
+          <p class="ia-label" id="final-summary">📊 Evaluación UX Global</p>
 
           <div class="score-grid">
             {Object.entries(scores).map(([key, value]) => (
               <div class="score-card" key={key}>
-                <div class="tooltip-container">
-                  <p class="score-title">
+                <div class="hover-container">
+                  <p class="score-title" aria-describedby={`desc-${key}`}>
                     {key.charAt(0).toUpperCase() + key.slice(1)}
                   </p>
-                  <div class="tooltip zoom-caption-box">
+                  <div id={`desc-${key}`} class="score-hover-box">
                     {explanations[key]}
                   </div>
                 </div>
-                <div class={`score-circle ${key}-score`}>
+                <div
+                  class={`score-circle ${key}-score`}
+                  role="img"
+                  aria-label={`${key} ${value} sobre 100`}
+                >
                   <span>{value}/100</span>
                 </div>
               </div>
