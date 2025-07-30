@@ -105,7 +105,7 @@ export default function UXAdvisorApp() {
 
       <div class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow-lg">
         <h1 class="app-title">
-          UX-<span class="highlight-ai">Ai</span>Visor
+          UX-<span class="highlight-ai">AI</span>visor
         </h1>
         <FormIsland
           onResult={(result: { pageSpeedResult: any; axeResult: any; url: string }) => {
